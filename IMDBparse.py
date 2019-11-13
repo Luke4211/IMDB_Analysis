@@ -8,7 +8,7 @@ Internet Movie Database (IMDB)
 #stores as dict {title_id :[movie_name, actor_list]}
 # (note actor_list will be empty upon return)
 #return dict
-def readBasics():
+def read_basics():
   basics = open("title.basics.tsv", "r", encoding='utf-8')
   
   #Read lines of file into titles
@@ -34,8 +34,9 @@ def readBasics():
     #values[0] corresponds to title_id.
     #Since title_id starts with "tt", we
     #use the slice operator [2:] to remove
-    #these characters, then append the name
-    #of movie (values[2]) using title_id[2:] as 
+    #these characters and cast it to an integer
+    #to remove leading zeroes, then append the name
+    #of movie (values[2]) using title_id as 
     #key to title_map
     
     title_id = int((values[0][2:]))
@@ -44,8 +45,8 @@ def readBasics():
   return title_map
   
 
-def readPrincipals(basic_map):
-  principals = open("title.principals.tsv", "r", encoding='utf-8')
+def read_principals(basic_map):
+  principals = open("title.principalstsv", "r", encoding='utf-8')
   
   #Read lines of file into entries
   entries = principals.readlines()
@@ -53,31 +54,26 @@ def readPrincipals(basic_map):
   #Remove column names
   del(entries[0])
   
-  i = 0
   for entry in entries:
     
     #See readBasics() for explanation
     values = entry.split("\t")
     title_id = int((values[0][2:]))
     
-    #Add the person's unique identifier to the 
-    #second index of the value in basic_map at the
-    #key of the movie identifier
     
-    
+    #Check if title_id exists in basic map.
+    #If it exists, update record. Otherwise do nothing.
+    #(Intuitively you would assume it does,
+    #but as of 11/13/2019 there are 164 title_id's
+    #present in title.principals.tsv that are not
+    #present in title.basics.tsv)
     if title_id in basic_map:
+      #Add the person's unique identifier to the 
+      #second index of the value in basic_map at the
+      #key of the movie identifier
       basic_map[title_id][1].append(values[2])
-    else:
-      i+=1
-  print(i)
-test = readBasics()
 
-readPrincipals(test)
 
-print(test[67][1])
-    
-    
-    
     
     
     
