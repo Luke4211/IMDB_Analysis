@@ -40,6 +40,3 @@ def readBasics():
   return title_map
   
 
-test = readBasics()
-
-print(test[67])
