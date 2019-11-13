@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-IMDBgraph.py ~ Contains functions for parsing the
-Internet Movie Database (IMDB) and 
+IMDBparse.py ~ Contains functions for parsing the
+Internet Movie Database (IMDB)
 """
 
 #Reads title.basics.tsv,
