@@ -11,7 +11,7 @@ Internet Movie Database (IMDB)
 # (note actor_list will be empty upon return)
 # return dict
 def read_basics():
-  basics = open("title.basics.test.tsv", "r", encoding='utf-8')
+  basics = open("title.basics.tsv", "r", encoding='utf-8')
   
   # Read lines of file into titles
   titles = basics.readlines()
@@ -48,7 +48,7 @@ def read_basics():
 def read_principals():
   basic_map = read_basics()
   name_map = read_names()
-  principals = open("title.principals.test.tsv", "r", encoding='utf-8')
+  principals = open("title.principals.tsv", "r", encoding='utf-8')
   
   
   # Read lines of file into entries
@@ -89,7 +89,7 @@ def read_principals():
   return [basic_map, name_map]
 
 def read_names():
-  names = open("name.basics.test.tsv", "r", encoding='utf-8')
+  names = open("name.basics.tsv", "r", encoding='utf-8')
   
   entries = names.readlines()
   
