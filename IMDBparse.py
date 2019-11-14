@@ -16,6 +16,8 @@ def read_basics():
   # Read lines of file into titles
   titles = basics.readlines()
   
+  basics.close()
+  
   # Since first line in file is column names,
   # remove it
   del(titles[0])
@@ -41,7 +43,7 @@ def read_basics():
     
     title_id = values[0]
     title_map[title_id] = [values[2], [] ]
-    
+  
   return title_map
   
 
@@ -53,6 +55,8 @@ def read_principals():
   
   # Read lines of file into entries
   entries = principals.readlines()
+  
+  principals.close()
   
   # Remove column names
   del(entries[0])
@@ -85,7 +89,7 @@ def read_principals():
         
         #Append title_id to the actor's movie list
         name_map[person_id][1].append(title_id)
-
+  
   return [basic_map, name_map]
 
 def read_names():
@@ -93,6 +97,7 @@ def read_names():
   
   entries = names.readlines()
   
+  names.close()
   # Remove column names
   del(entries[0])
   
@@ -112,7 +117,7 @@ def read_names():
     name_map[person_id] = [values[1], []]
     
   
-    
+  
   return name_map
     
 
