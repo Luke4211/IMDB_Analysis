@@ -6,47 +6,13 @@ Internet Movie Database (IMDB)
 @author Lucas Gorski
 """
 
-# Reads title.basics.tsv,
-# stores as dict {title_id :[movie_name, actor_list]}
-# (note actor_list will be empty upon return)
-# return dict
-def read_basics():
-  basics = open("title.basics.tsv", "r", encoding='utf-8')
-  
-  # Read lines of file into titles
-  titles = basics.readlines()
-  
-  basics.close()
-  
-  # Since first line in file is column names,
-  # remove it
-  del(titles[0])
-  
-  # Create empty dictionary to fill with values
-  # Key: the title's unique ID.
-  # Value: a list containing the name of the title
-  #        and a list of actors which appear in it.
-  title_map = {}
-  
-  # Loop through lines, and add key,value
-  # pairs to title_map
-  for entry in titles:
-    
-    # Split string by TAB character into
-    # indivudual value fields.
-    values = entry.split("\t")
-    
-    #values[0] corresponds to title_id.
-    # Append the name of movie 
-    #(values[2]) using title_id as 
-    # key to title_map
-    
-    title_id = values[0]
-    title_map[title_id] = [values[2], [] ]
-  
-  return title_map
-  
-
+# Returns a list containing two dictionarys:
+# The first dictionary maps movie ID's to their name, 
+# a list of actors/directors/writers who appear, the rating
+# of the movie, and the number of votes the rating is based off.
+#
+# The second dictionary maps people's ID's to their name and
+# a list of movies they appear in.
 def read_principals():
   basic_map = read_basics()
   name_map = read_names()
@@ -92,6 +58,91 @@ def read_principals():
   
   return [basic_map, name_map]
 
+
+# Returns a dictionary in the following format:  
+# Key: the title's unique ID.
+# Value: a list containing: the name of the title,
+#        a list of actors which appear in it, 
+#        it's rating out of 10 and how many votes
+#        the rating is based off.
+# (note actor_list will be empty upon return)
+def read_basics():
+  
+  ratings_map = read_ratings()
+  
+  basics = open("title.basics.tsv", "r", encoding='utf-8')
+  
+  # Read lines of file into titles
+  titles = basics.readlines()
+  
+  basics.close()
+  
+  # Since first line in file is column names,
+  # remove it
+  del(titles[0])
+  
+  # Create empty dictionary to fill with values
+  title_map = {}
+  
+  # Loop through lines, and add key,value
+  # pairs to title_map
+  for entry in titles:
+    
+    # Split string by TAB character into
+    # indivudual value fields.
+    values = entry.split("\t")
+    
+    # Retrieve title_id from the first index in values
+    # Append to title_map at key title_id a list containing 
+    # the name of movie and empty 
+    # list used to later store actor's names.
+    # Add two -1 values, which will be used to store
+    # rating and number of votes. The -1 value ensures
+    # all entries have the same number of index's because
+    # we cannot assume all movies have an entry in ratings_map
+    
+    title_id = values[0]
+    title_map[title_id] = [values[2], [], -1, -1 ]
+    
+    # If the movie has an entry in the ratings map,
+    # replace the -1 values with the rating and number
+    # of votes
+    if title_id in ratings_map:
+      rating, votes = ratings_map[title_id]
+      title_map[title_id][2], title_map[title_id][3] = rating, votes
+  
+  return title_map
+
+# Returns a dictionary in the following format:
+# Key: the title's unique ID.
+# Value: A list containing a double representing 
+#        the movie's rating out of 10, and an integer
+#        representing the number of votes  
+def read_ratings():
+  title_ratings = open("title.ratings.tsv", "r", encoding='utf-8')
+  
+  # Read lines of title_ratings into ratings
+  ratings = title_ratings.readlines()
+  
+  title_ratings.close()
+  
+  # Remove column names
+  del(ratings[0])
+  
+  # Create empty dictionary to fill with values
+  ratings_map = {}
+  
+  # Loop through each entry in ratings, and append
+  # the rating and number of votes to ratings_map
+  for entry in ratings:
+    
+    values = entry.split("\t")
+    
+    title_id = values[0]
+    ratings_map[title_id] = [values[1], values[2].rstrip()]
+  return ratings_map
+
+
 def read_names():
   names = open("name.basics.tsv", "r", encoding='utf-8')
   
@@ -119,7 +170,8 @@ def read_names():
   
   
   return name_map
-    
+
+
 
 basic_map, name_map = read_principals()
 
