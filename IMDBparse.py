@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-import csv
-import os
 """
   IMDBparse.py ~ Contains functions for parsing the
   Internet Movie Database (IMDB), encoding it into
   a graph format, and writing the results to files.
 
-  @author Lucas Gorski
+  @author: Lucas Gorski
 """
+
+import csv
+import os
 
 # This is the primary function of this file.
 # Calling it parses all of the IMDB files, processes them into
