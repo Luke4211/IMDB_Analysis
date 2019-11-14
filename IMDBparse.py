@@ -11,7 +11,7 @@ Internet Movie Database (IMDB)
 # (note actor_list will be empty upon return)
 # return dict
 def read_basics():
-  basics = open("title.basics.tsv", "r", encoding='utf-8')
+  basics = open("title.basics.test.tsv", "r", encoding='utf-8')
   
   # Read lines of file into titles
   titles = basics.readlines()
@@ -22,7 +22,8 @@ def read_basics():
   
   # Create empty dictionary to fill with values
   # Key: the title's unique ID.
-  # Value: the name of the title.
+  # Value: a list containing the name of the title
+  #        and a list of actors which appear in it.
   title_map = {}
   
   # Loop through lines, and add key,value
@@ -46,8 +47,9 @@ def read_basics():
 
 def read_principals():
   basic_map = read_basics()
-  principals = open("title.principals.tsv", "r", encoding='utf-8')
   name_map = read_names()
+  principals = open("title.principals.test.tsv", "r", encoding='utf-8')
+  
   
   # Read lines of file into entries
   entries = principals.readlines()
@@ -69,18 +71,25 @@ def read_principals():
     # present in title.principals.tsv that are not
     # present in title.basics.tsv)
     if title_id in basic_map:
-      # Reference name_map by the person_id 
-      # to retrive actor's name. Check
-      # if person_id exists in name_map, and if so
-      # append to actor_list in the basic_map at key title_id
+     
+      # Check if person_id exists in name_map. 
+      # If it does not, do nothing.
       person_id = values[2]
       if person_id in name_map:
-        name = name_map[person_id]
+        # Reference name_map by the person_id 
+        # to retrive actor's name. 
+        # Append name to actor_list in the 
+        # basic_map at key title_id
+        name = name_map[person_id][0]
         basic_map[title_id][1].append(name)
-    return basic_map
+        
+        #Append title_id to the actor's movie list
+        name_map[person_id][1].append(title_id)
+
+  return [basic_map, name_map]
 
 def read_names():
-  names = open("name.basics.tsv", "r", encoding='utf-8')
+  names = open("name.basics.test.tsv", "r", encoding='utf-8')
   
   entries = names.readlines()
   
@@ -89,19 +98,26 @@ def read_names():
   
   # Initialize name_map to empty dictionary
   # Key: the person's unique ID
-  # Value: the person's name
+  # Value: list containing their name and a list
+  #        containing all titles they appear in
+  #        (Note: title list will be empty upon return)
   name_map = {}
   
+  # Loop through entries for actors, and append
+  # their name to name_map at key person_id
   for entry in entries:
     
     values = entry.split("\t")
     person_id = values[0]
-    name_map[person_id] = values[1]
+    name_map[person_id] = [values[1], []]
+    
+  
     
   return name_map
     
-"""
-test = read_principals()
 
-print(test["tt0000001"])
-"""
+basic_map, name_map = read_principals()
+
+print(basic_map["tt0829482"])
+print(name_map["nm1706767"])
+
