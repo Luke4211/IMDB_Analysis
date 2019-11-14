@@ -46,9 +46,9 @@ def generate_adj_list(directory_name):
   
   # Write entries from title_map to adjacency list file.
   for key, value in title_map.items():
-    line = key + " "
+    line = str(key) + " "
     for actor in value[1]:
-      line += actor + " "     
+      line += str(actor) + " "     
       
       # Remove edge from name_map to prevent
       # duplicate edges from being recorded
@@ -58,7 +58,7 @@ def generate_adj_list(directory_name):
     
   # Write keys from name_map to adjacency list file.
   for key, value in name_map.items():
-    line = key + '\n'
+    line = str(key) + '\n'
     adj_list_file.write(line)
     
   adj_list_file.close()
@@ -96,7 +96,7 @@ def read_principals():
     
     # See readBasics() for explanation
     values = entry.split("\t")
-    title_id = values[0]
+    title_id = int(values[0][2:])
     
     
     # Check if title_id exists in basic map.
@@ -109,7 +109,7 @@ def read_principals():
      
       # Check if person_id exists in name_map. 
       # If it does not, do nothing.
-      person_id = values[2]
+      person_id = int(values[2][2:])
       if person_id in name_map:
         # Append person_id to actor_list in the 
         # basic_map at key title_i
@@ -132,7 +132,7 @@ def read_basics():
   
   ratings_map = read_ratings()
   
-  basics = open("title.basics.tsv", "r", encoding='utf-8')
+  basics = open("title.basics.test.tsv", "r", encoding='utf-8')
   
   # Read lines of file into titles
   titles = basics.readlines()
@@ -163,7 +163,7 @@ def read_basics():
     # all entries have the same number of index's because
     # we cannot assume all movies have an entry in ratings_map
     
-    title_id = values[0]
+    title_id = int(values[0][2:])
     title_map[title_id] = [values[2], [], -1, -1 ]
     
     # If the movie has an entry in the ratings map,
@@ -181,7 +181,7 @@ def read_basics():
 #        the movie's rating out of 10, and an integer
 #        representing the number of votes  
 def read_ratings():
-  title_ratings = open("title.ratings.tsv", "r", encoding='utf-8')
+  title_ratings = open("title.ratings.test.tsv", "r", encoding='utf-8')
   
   # Read lines of title_ratings into ratings
   ratings = title_ratings.readlines()
@@ -200,7 +200,7 @@ def read_ratings():
     
     values = entry.split("\t")
     
-    title_id = values[0]
+    title_id = int(values[0][2:])
     ratings_map[title_id] = [values[1], values[2].rstrip()]
   return ratings_map
 
@@ -210,7 +210,7 @@ def read_ratings():
 #        containing all titles they appear in
 #        (Note: title list will be empty upon return)
 def read_names():
-  names = open("name.basics.tsv", "r", encoding='utf-8')
+  names = open("name.basics.test.tsv", "r", encoding='utf-8')
   
   entries = names.readlines()
   
@@ -227,7 +227,7 @@ def read_names():
   for entry in entries:
     
     values = entry.split("\t")
-    person_id = values[0]
+    person_id = int(values[0][2:])
     name_map[person_id] = [values[1], []]
     
   
@@ -236,5 +236,5 @@ def read_names():
 
 
 
-generate_adj_list("test")
+generate_adj_list("test2")
 

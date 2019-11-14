@@ -10,7 +10,7 @@
 
 import csv
 import networkx as nx
-from networkx.algorithms.smallworld import omega
+from networkx.algorithms.smallworld import sigma
 
 def analyze_graph(directory_name):
   graph_pkg = package_graph(directory_name)
@@ -21,7 +21,7 @@ def analyze_graph(directory_name):
   #print("Closeness: " + nx.closeness_centrality(graph))
   print("Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
-  print("Small Word (sigma): " + str(omega(graph)))
+  print("Small Word (sigma): " + str(sigma(graph)))
   
 def package_graph(directory_name):
   graph = nx.read_adjlist(directory_name + "/Adj_list.txt")
@@ -48,5 +48,5 @@ def read_maps(directory_name):
   
   return [title_map, name_map]
 
-analyze_graph("test")
+analyze_graph("test2")
 
