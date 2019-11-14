@@ -81,7 +81,7 @@ def read_principals():
   # Retrieve the title and name maps to enrich w
   basic_map = read_basics()
   name_map = read_names()
-  principals = open("title.principals.test.tsv", "r", encoding='utf-8')
+  principals = open("title.principals.tsv", "r", encoding='utf-8')
   
   
   # Read lines of file into entries
@@ -132,7 +132,7 @@ def read_basics():
   
   ratings_map = read_ratings()
   
-  basics = open("title.basics.test.tsv", "r", encoding='utf-8')
+  basics = open("title.basics.tsv", "r", encoding='utf-8')
   
   # Read lines of file into titles
   titles = basics.readlines()
@@ -181,7 +181,7 @@ def read_basics():
 #        the movie's rating out of 10, and an integer
 #        representing the number of votes  
 def read_ratings():
-  title_ratings = open("title.ratings.test.tsv", "r", encoding='utf-8')
+  title_ratings = open("title.ratings.tsv", "r", encoding='utf-8')
   
   # Read lines of title_ratings into ratings
   ratings = title_ratings.readlines()
@@ -210,7 +210,7 @@ def read_ratings():
 #        containing all titles they appear in
 #        (Note: title list will be empty upon return)
 def read_names():
-  names = open("name.basics.test.tsv", "r", encoding='utf-8')
+  names = open("name.basics.tsv", "r", encoding='utf-8')
   
   entries = names.readlines()
   
