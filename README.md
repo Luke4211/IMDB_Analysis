@@ -1,5 +1,5 @@
 <h1>IMDB_Analysis</h1>
-<h2>Python scripts for parsing IMDB data into a an adjacency list</h2>
+<h2>Python scripts for parsing IMDB data into a graph representing relationships between movies and the actors who act in them, and for analyzing the resulting graphs.</h2>
 
 This code uses data downloaded from IMDB.
 
