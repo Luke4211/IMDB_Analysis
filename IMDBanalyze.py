@@ -24,7 +24,7 @@ def analyze_graph(directory_name):
   print("Small Word (sigma): " + str(sigma(graph)))
   
 def package_graph(directory_name):
-  graph = nx.read_adjlist(directory_name + "/Adj_list.txt")
+  graph = nx.read_adjlist(directory_name + "/Adj_list.txt", nodetype=int)
   title_map, name_map = read_maps(directory_name)
   
   return [graph, title_map, name_map]
