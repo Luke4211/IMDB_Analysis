@@ -3,8 +3,14 @@
 
 This code uses data downloaded from IMDB.
 
-For usage,  use <a href="https://datasets.imdbws.com/">this link</a> to download title.basics.tsv.gz, name.basics.tsv.gz, title.ratings.tsv.gz, and title.principals.tsv.gz Extract, and rename resulting data.tsv files to the name of it's respective zip file (minus the .gz) and put in the working directory.
+For usage,  use <a href="https://datasets.imdbws.com/">this link</a> to download title.basics.tsv.gz, name.basics.tsv.gz, title.ratings.tsv.gz, and title.principals.tsv.gz Extract to yield the .gz files (on windows it may extract to folder containing data.tsv, rename to the previous name (minus .gz) and put in script directory.
 
-Run IMDBparse.py once the files are in place, it should create a new directory. To analyze network, edit IMDBanalyze.py so that it is looking for the directory previously created by IMDBparse.py. Run IMDBanalyze.py, and it should display network metrics. 
+To perform network analysis:
 
+![Example image]
+(demo/example.png)
+
+par.generate_adj_list("folder", 50000) parses the .tsv files, and creates a new directory (in this case called folder) containing an encoding of the graph where only movie titles with 50k ratings or above are contained (actors who do not appear in any of these movies are purged).
+
+ana.analyze("folder") reads the graph encodings from the directory "folder", performs calculations, and displays results. Currently, to tweak calculations you must edit IMDBanalyze.py manually. I will simplify this later.
 
