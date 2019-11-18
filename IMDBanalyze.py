@@ -23,7 +23,7 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
-  influence_max(graph, 5, title_map, name_map)
+  influence_max(graph, 10, title_map, name_map)
   
   
 # Prints out maximally influential actors/movies.
@@ -36,7 +36,7 @@ def influence_max(graph, num_select, title_map, name_map, prob=.1):
     else:
       print("One of the maximally influential movies: " + str(title_map[node]))
       
-  print("Time elapsed since inf_max calculation began: " + str(elapsed))
+  print("Time elapsed since inf_max calculation began: " + str(elapsed[len(elapsed) -1]/60))
   
   
 # Calculates small world sigma value for each of the
