@@ -38,8 +38,7 @@ def generate_adj_list(directory_name, minimum_votes=50):
   # because we will be modifying their contents later
   # in this function.
   for key, value in title_map.items():
-    abridged_val = [value[0], value[2], value[3]]
-    title_writer.writerow([key, abridged_val])
+    title_writer.writerow([key, value[0], value[2], value[3]])
   title_map_file.close()
   
   for key, value in name_map.items():

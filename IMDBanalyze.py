@@ -29,7 +29,7 @@ def analyze_graph(directory_name):
   for subgraph in components:
     node = list(subgraph.nodes)[0]
     if node in title_map:
-      title = title_map[node]
+      title = title_map[node][0]
       print("A movie contained in component: " + title)
       print("Small Word (sigma) for " + title + " : " + str(sigma(subgraph)))
       
@@ -58,8 +58,8 @@ def read_maps(directory_name):
   name_reader = csv.reader(name_map_file)
   
   # Construct dictionaries from the csv readers
-  title_map = {val[0]:val[1] for val in title_reader}
-  name_map = {val[0]:val[1] for val in name_reader}
+  title_map = {int(val[0]):[val[1], val[2], val[3]] for val in title_reader}
+  name_map = {int(val[0]):val[1] for val in name_reader}
   
   title_map_file.close()
   name_map_file.close()
