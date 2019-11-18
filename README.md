@@ -7,4 +7,4 @@ For usage,  use <a href="https://datasets.imdbws.com/">this link</a> to download
 
 Run IMDBparse.py once the files are in place, it should create a new directory. To analyze network, edit IMDBanalyze.py so that it is looking for the directory previously created by IMDBparse.py. Run IMDBanalyze.py, and it should display network metrics. 
 
-Note: Depending on your computer, calling generate_adj_list from IMDBparse.py may take up to 30 minutes as it has almost 3GB of data to process, and Python is not known for it's speed. Additionally, running IMDBanalyze.py requires a lot of memory and will also take a long time to complete.
+
