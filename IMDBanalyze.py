@@ -23,15 +23,22 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
-  sol, spread, elapsed, lookup = im.celf(graph, 2, .2)
+  influence_max(graph, 5, title_map, name_map)
+  
+  
+# Prints out maximally influential actors/movies.
+def influence_max(graph, num_select, title_map, name_map, prob=.1):
+  sol, spread, elapsed, lookup = im.celf(graph, num_select, prob)
   
   for node in sol:
     if node in name_map:
       print("One of the maximally influential actors: " + str(name_map[node]))
     else:
       print("One of the maximally influential movies: " + str(title_map[node]))
+      
+  print("Time elapsed since inf_max calculation began: " + str(elapsed))
   
-
+  
 # Calculates small world sigma value for each of the
 # graph's subcomponents. 
 # NOTE: Due to the size of the network, it is unlikely

@@ -14,6 +14,8 @@ import networkx as nx
 import time
 import heapq
 
+# Cost Effective Lazy Forwarding algorithm to approximate
+# maximal influencers.
 def celf(graph, k, prob, iters=1000):
   start_time = time.time()
   
