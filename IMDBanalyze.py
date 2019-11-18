@@ -22,8 +22,10 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
-  components = nx.algorithms.components.connected_components_subgraphs(graph)
+  # Split graph into it's disconnected components
+  components = nx.connected_components_subgraphs(graph)
   
+  # Calculate small world sigma value for each component
   for subgraph in components:
     node = subgraph.nodes[0]
     if node in title_map:
