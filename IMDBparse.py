@@ -102,7 +102,7 @@ def read_principals(minimum_votes):
     
     # See readBasics() for explanation
     values = entry.split("\t")
-    title_id = int(values[0][2:])
+    title_id = values[0]
     
     
     # Check if title_id exists in basic map.
@@ -117,7 +117,7 @@ def read_principals(minimum_votes):
       if basic_map[title_id][3] >= minimum_votes:
         # Check if person_id exists in name_map. 
         # If it does not, do nothing.
-        person_id = int(values[2][2:])
+        person_id = values[2]
         if person_id in name_map:
           # Append person_id to actor_list in the 
           # basic_map at key title_i
@@ -162,7 +162,7 @@ def read_basics(minimum_votes):
     # indivudual value fields.
     values = entry.split("\t")
     
-    title_id = int(values[0][2:])
+    title_id = values[0]
     
     if title_id in ratings_map:
       rating, votes = ratings_map[title_id]
@@ -203,7 +203,7 @@ def read_ratings():
     
     values = entry.split("\t")
     
-    title_id = int(values[0][2:])
+    title_id = values[0]
     ratings_map[title_id] = [values[1], values[2].rstrip()]
   return ratings_map
 
@@ -230,7 +230,7 @@ def read_names():
   for entry in entries:
     
     values = entry.split("\t")
-    person_id = int(values[0][2:])
+    person_id = values[0]
     name_map[person_id] = [values[1], []]
     
   

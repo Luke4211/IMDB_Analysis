@@ -22,6 +22,16 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
+  
+  
+
+# Calculates small world sigma value for each of the
+# graph's subcomponents. 
+# NOTE: Due to the size of the network, it is unlikely
+# this function will complete as it is very computationally
+# expensive. Try to cull graph to ratings over 200,000 if you
+# attempt to use this method
+def small_world(graph, title_map, name_map):
   # Split graph into it's disconnected components
   components = nx.connected_component_subgraphs(graph)
   
@@ -38,11 +48,10 @@ def analyze_graph(directory_name):
       print("An actor contained in component: " + name)
       print("Small Word (sigma) for " + name + " : " + str(sigma(subgraph)))
   
-  
 # Read graph from file, and return a list containing
 # the graph and the reference maps returned by read_maps
 def package_graph(directory_name):
-  graph = nx.read_adjlist(directory_name + "/Adj_list.txt", nodetype=int)
+  graph = nx.read_adjlist(directory_name + "/Adj_list.txt")
   title_map, name_map = read_maps(directory_name)
   
   return [graph, title_map, name_map]
@@ -58,8 +67,8 @@ def read_maps(directory_name):
   name_reader = csv.reader(name_map_file)
   
   # Construct dictionaries from the csv readers
-  title_map = {int(val[0]):[val[1], val[2], val[3]] for val in title_reader}
-  name_map = {int(val[0]):val[1] for val in name_reader}
+  title_map = {val[0]:[val[1], val[2], val[3]] for val in title_reader}
+  name_map = {val[0]:val[1] for val in name_reader}
   
   title_map_file.close()
   name_map_file.close()
