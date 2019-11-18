@@ -165,7 +165,7 @@ def read_basics(minimum_votes):
     if title_id in ratings_map:
       rating, votes = ratings_map[title_id]
       
-      if votes >= minimum_votes:
+      if int(votes) >= minimum_votes:
         # Retrieve title_id from the first index in values
         # Append to title_map at key title_id a list containing 
         # the name of movie and empty 
