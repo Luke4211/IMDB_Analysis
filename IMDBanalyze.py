@@ -27,7 +27,7 @@ def analyze_graph(directory_name):
   
   # Calculate small world sigma value for each component
   for subgraph in components:
-    node = subgraph.nodes[0]
+    node = list(subgraph.nodes)[0]
     if node in title_map:
       title = title_map[node]
       print("A movie contained in component: " + title)
@@ -39,6 +39,8 @@ def analyze_graph(directory_name):
       print("Small Word (sigma) for " + name + " : " + str(sigma(subgraph)))
   
   
+# Read graph from file, and return a list containing
+# the graph and the reference maps returned by read_maps
 def package_graph(directory_name):
   graph = nx.read_adjlist(directory_name + "/Adj_list.txt", nodetype=int)
   title_map, name_map = read_maps(directory_name)
@@ -64,5 +66,5 @@ def read_maps(directory_name):
   
   return [title_map, name_map]
 
-analyze_graph("smaller")
+#analyze_graph("smaller")
 
