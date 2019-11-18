@@ -89,5 +89,5 @@ def read_maps(directory_name):
   
   return [title_map, name_map]
 
-analyze_graph("test")
+#analyze_graph("test")
 
