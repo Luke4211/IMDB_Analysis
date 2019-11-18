@@ -14,13 +14,15 @@ import os
 # Calling it parses all of the IMDB files, processes them into
 # an adjacency matrix and two reference maps, and then writes them
 # to files in the directory specified by directory_name.
+# Optional: set minimum votes to a custom number to omit titles
+# with fewer numbers of votes
 # 
-def generate_adj_list(directory_name):
+def generate_adj_list(directory_name, minimum_votes=50):
   os.mkdir(directory_name)
   
   # Call read_principals to parse IMDB data and
   # generate the title and name maps
-  title_map, name_map = read_principals()
+  title_map, name_map = read_principals(minimum_votes)
   
   # Open target files for writing
   adj_list_file = open(directory_name + "/Adj_list.txt", "w", encoding='utf-8')
@@ -41,7 +43,10 @@ def generate_adj_list(directory_name):
   title_map_file.close()
   
   for key, value in name_map.items():
-    name_writer.writerow([key, value[0]])
+    # Only write to file if the person has appeared
+    # in films with more ratings than the minimum_rating
+    if name_map[key][1]:
+      name_writer.writerow([key, value[0]])
   name_map_file.close()
   
   # Write entries from title_map to adjacency list file.
@@ -76,10 +81,10 @@ def generate_adj_list(directory_name):
 #
 # The second dictionary maps people's ID's to their name and
 # a list of movies they appear in.
-def read_principals():
+def read_principals(minimum_votes):
   
   # Retrieve the title and name maps to enrich w
-  basic_map = read_basics()
+  basic_map = read_basics(minimum_votes)
   name_map = read_names()
   principals = open("title.principals.tsv", "r", encoding='utf-8')
   
@@ -106,17 +111,18 @@ def read_principals():
     # present in title.principals.tsv that are not
     # present in title.basics.tsv)
     if title_id in basic_map:
-     
-      # Check if person_id exists in name_map. 
-      # If it does not, do nothing.
-      person_id = int(values[2][2:])
-      if person_id in name_map:
-        # Append person_id to actor_list in the 
-        # basic_map at key title_i
-        basic_map[title_id][1].append(person_id)
-        
-        #Append title_id to the actor's movie list
-        name_map[person_id][1].append(title_id)
+      
+      if basic_map[title_id][3] >= minimum_votes:
+        # Check if person_id exists in name_map. 
+        # If it does not, do nothing.
+        person_id = int(values[2][2:])
+        if person_id in name_map:
+          # Append person_id to actor_list in the 
+          # basic_map at key title_i
+          basic_map[title_id][1].append(person_id)
+          
+          #Append title_id to the actor's movie list
+          name_map[person_id][1].append(title_id)
   
   return [basic_map, name_map]
 
@@ -128,7 +134,7 @@ def read_principals():
 #        it's rating out of 10 and how many votes
 #        the rating is based off.
 # (note: the actor_list will be empty upon return)
-def read_basics():
+def read_basics(minimum_votes):
   
   ratings_map = read_ratings()
   
@@ -154,24 +160,19 @@ def read_basics():
     # indivudual value fields.
     values = entry.split("\t")
     
-    # Retrieve title_id from the first index in values
-    # Append to title_map at key title_id a list containing 
-    # the name of movie and empty 
-    # list used to later store actor's names.
-    # Add two -1 values, which will be used to store
-    # rating and number of votes. The -1 value ensures
-    # all entries have the same number of index's because
-    # we cannot assume all movies have an entry in ratings_map
-    
     title_id = int(values[0][2:])
-    title_map[title_id] = [values[2], [], -1, -1 ]
     
-    # If the movie has an entry in the ratings map,
-    # replace the -1 values with the rating and number
-    # of votes
     if title_id in ratings_map:
       rating, votes = ratings_map[title_id]
-      title_map[title_id][2], title_map[title_id][3] = rating, votes
+      
+      if votes >= minimum_votes:
+        # Retrieve title_id from the first index in values
+        # Append to title_map at key title_id a list containing 
+        # the name of movie and empty 
+        # list used to later store actor's names.
+        # Add the rating and number of votes
+        title_map[title_id] = [values[2], [], rating, votes ]
+      
   
   return title_map
 
