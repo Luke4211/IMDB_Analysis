@@ -8,7 +8,7 @@ For usage,  use <a href="https://datasets.imdbws.com/">this link</a> to download
 To perform network analysis:
 
 ![Example image]
-(demo/example.png)
+(https://github.com/Luke4211/IMDB_Analysis/tree/master/demo/example.png)
 
 par.generate_adj_list("folder", 50000) parses the .tsv files, and creates a new directory (in this case called folder) containing an encoding of the graph where only movie titles with 50k ratings or above are contained (actors who do not appear in any of these movies are purged).
 
