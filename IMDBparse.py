@@ -64,8 +64,9 @@ def generate_adj_list(directory_name, minimum_votes=50):
     
   # Write keys from name_map to adjacency list file.
   for key, value in name_map.items():
-    line = str(key) + '\n'
-    adj_list_file.write(line)
+    if value[1]:
+      line = str(key) + '\n'
+      adj_list_file.write(line)
     
   adj_list_file.close()
 
@@ -113,6 +114,7 @@ def read_principals(minimum_votes):
     # present in title.basics.tsv)
     if title_id in basic_map:
       
+      # Filter titles with less votes than the minimum
       if basic_map[title_id][3] >= minimum_votes:
         # Check if person_id exists in name_map. 
         # If it does not, do nothing.
@@ -238,5 +240,5 @@ def read_names():
 
 
 
-generate_adj_list("smaller")
+#generate_adj_list("test")
 
