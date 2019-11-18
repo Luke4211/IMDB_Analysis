@@ -21,7 +21,21 @@ def analyze_graph(directory_name):
   #print("Closeness: " + nx.closeness_centrality(graph))
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
-  print("Small Word (sigma): " + str(sigma(graph)))
+  
+  components = nx.algorithms.components.connected_components_subgraphs(graph)
+  
+  for subgraph in components:
+    node = subgraph.nodes[0]
+    if node in title_map:
+      title = title_map[node]
+      print("A movie contained in component: " + title)
+      print("Small Word (sigma) for " + title + " : " + str(sigma(subgraph)))
+      
+    else:
+      name = name_map[node]
+      print("An actor contained in component: " + name)
+      print("Small Word (sigma) for " + name + " : " + str(sigma(subgraph)))
+  
   
 def package_graph(directory_name):
   graph = nx.read_adjlist(directory_name + "/Adj_list.txt", nodetype=int)
