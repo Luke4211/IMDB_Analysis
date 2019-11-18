@@ -51,15 +51,16 @@ def generate_adj_list(directory_name, minimum_votes=50):
   
   # Write entries from title_map to adjacency list file.
   for key, value in title_map.items():
-    line = str(key) + " "
-    for actor in value[1]:
-      line += str(actor) + " "     
-      
-      # Remove edge from name_map to prevent
-      # duplicate edges from being recorded
-      name_map[actor][1].remove(key)
-    line += '\n'
-    adj_list_file.write(line)
+    if value[1]:
+      line = str(key) + " "
+      for actor in value[1]:
+        line += str(actor) + " "     
+        
+        # Remove edge from name_map to prevent
+        # duplicate edges from being recorded
+        name_map[actor][1].remove(key)
+      line += '\n'
+      adj_list_file.write(line)
     
   # Write keys from name_map to adjacency list file.
   for key, value in name_map.items():
