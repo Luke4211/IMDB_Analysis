@@ -23,7 +23,7 @@ def analyze_graph(directory_name):
   print("Density: " + str(nx.density(graph)))
   
   # Split graph into it's disconnected components
-  components = nx.connected_components_subgraphs(graph)
+  components = nx.connected_component_subgraphs(graph)
   
   # Calculate small world sigma value for each component
   for subgraph in components:
