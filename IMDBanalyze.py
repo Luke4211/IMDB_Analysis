@@ -19,7 +19,7 @@ def analyze_graph(directory_name):
   name_map = graph_pkg[2]
   
   #print("Closeness: " + nx.closeness_centrality(graph))
-  print("Clustering Coefficient: " + str(nx.average_clustering(graph)))
+  print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   print("Small Word (sigma): " + str(sigma(graph)))
   
@@ -48,5 +48,5 @@ def read_maps(directory_name):
   
   return [title_map, name_map]
 
-analyze_graph("test2")
+analyze_graph("smaller")
 

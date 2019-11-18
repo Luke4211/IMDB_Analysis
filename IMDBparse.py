@@ -236,5 +236,5 @@ def read_names():
 
 
 
-generate_adj_list("test2")
+generate_adj_list("smaller")
 
