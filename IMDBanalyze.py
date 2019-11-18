@@ -25,16 +25,11 @@ def analyze_graph(directory_name):
   
   sol, spread, elapsed, lookup = im.celf(graph, 2, .2)
   
-  i = 0
-  names = []
   for node in sol:
-    if node in title_map:
-      names[i] = title_map[node]
-      i += 1
+    if node in name_map:
+      print("One of the maximally influential actors: " + str(name_map[node]))
     else:
-      names[i] = name_map[node]
-      
-  print("Most influential nodes: " + str(names))
+      print("One of the maximally influential movies: " + str(title_map[node]))
   
 
 # Calculates small world sigma value for each of the
