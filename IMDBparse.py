@@ -171,7 +171,7 @@ def read_basics(minimum_votes):
         # the name of movie and empty 
         # list used to later store actor's names.
         # Add the rating and number of votes
-        title_map[title_id] = [values[2], [], rating, votes ]
+        title_map[title_id] = [values[2], [], rating, int(votes) ]
       
   
   return title_map
