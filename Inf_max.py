@@ -18,7 +18,7 @@ def celf(graph, k, prob, iters=1000):
   start_time = time.time()
   
   gains = []
-  for node in range(graph.number_of_nodes()):
+  for node in nx.nodes(graph):
     spread = independent_cascade(graph, [node], prob, iters)
     heapq.heappush(gains, (-spread, node))
     
