@@ -5,7 +5,7 @@ This code uses data downloaded from IMDB.
 
 For usage,  use <a href="https://datasets.imdbws.com/">this link</a> to download title.basics.tsv.gz, name.basics.tsv.gz, title.ratings.tsv.gz, and title.principals.tsv.gz Extract to yield the .gz files (on windows it may extract to folder containing data.tsv, rename to the previous name (minus .gz) and put in script directory.
 
-To perform network analysis:
+To perform network analysis, first launch Python's REPL and follow example below:
 
 ![Example image](/demo/example.png)
 
