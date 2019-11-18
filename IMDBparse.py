@@ -242,5 +242,5 @@ def read_names():
 
 
 
-#generate_adj_list("test")
+#generate_adj_list("test", 100000)
 

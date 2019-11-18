@@ -10,6 +10,7 @@
 
 import csv
 import networkx as nx
+import Inf_max as im
 from networkx.algorithms.smallworld import sigma
 
 def analyze_graph(directory_name):
@@ -22,7 +23,18 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
+  sol, spread, elapsed, lookup = im.celf(graph, 2, .2)
   
+  i = 0
+  names = []
+  for node in sol:
+    if node in title_map:
+      names[i] = title_map[node]
+      i += 1
+    else:
+      names[i] = name_map[node]
+      
+  print("Most influential nodes: " + str(names))
   
 
 # Calculates small world sigma value for each of the
@@ -75,5 +87,5 @@ def read_maps(directory_name):
   
   return [title_map, name_map]
 
-#analyze_graph("smaller")
+analyze_graph("test")
 
