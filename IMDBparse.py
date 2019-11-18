@@ -41,11 +41,14 @@ def generate_adj_list(directory_name, minimum_votes=50):
     title_writer.writerow([key, value[0], value[2], value[3]])
   title_map_file.close()
   
+  temp_names = []
+  
   for key, value in name_map.items():
     # Only write to file if the person has appeared
     # in films with more ratings than the minimum_rating
     if name_map[key][1]:
       name_writer.writerow([key, value[0]])
+      temp_names.append(key)
   name_map_file.close()
   
   # Write entries from title_map to adjacency list file.
@@ -62,10 +65,10 @@ def generate_adj_list(directory_name, minimum_votes=50):
       adj_list_file.write(line)
     
   # Write keys from name_map to adjacency list file.
-  for key, value in name_map.items():
-    if value[1]:
-      line = str(key) + '\n'
-      adj_list_file.write(line)
+  for key in temp_names:
+    
+    line = str(key) + '\n'
+    adj_list_file.write(line)
     
   adj_list_file.close()
 
