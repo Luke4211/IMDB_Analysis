@@ -6,7 +6,7 @@
   Specifically, open source code for these algorithms was found at
   http://ethen8181.github.io/machine-learning/networkx/max_influence/max_influence.html
   
-  Further reading on CELF algorithm: 
+  Further reading on submodular maximization algorithms:
   https://www.openu.ac.il/personal_sites/moran-feldman/publications/Handbook2018.pdf
   
   Algorithm adapted to work with networkx by Lucas Gorski
