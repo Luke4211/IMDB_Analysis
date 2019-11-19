@@ -2,7 +2,8 @@
 """
   IMDBparse.py ~ Contains functions for parsing the
   Internet Movie Database (IMDB), encoding it into
-  a graph format, and writing the results to files.
+  an adjacency list and reference maps, and writing 
+  the results to files.
 
   @author: Lucas Gorski
 """
