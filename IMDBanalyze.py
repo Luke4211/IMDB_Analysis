@@ -24,8 +24,17 @@ def analyze_graph(directory_name):
   print("Density: " + str(nx.density(graph)))
   
   influence_max(graph, 5, title_map, name_map)
-  nx.algorithms.community.greedy_modularity_communities(graph)
+  comms = nx.algorithms.community.greedy_modularity_communities(graph)
   
+  for com in comms:
+    print("Community start: ")
+    for node in com:
+      if node in name_map:
+        print(str(name_map[node]))
+      else:
+        print(str(title_map[node]))
+    print("Community end \n\n")
+    
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
   sol, spread, elapsed, lookup = im.celf(graph, num_select, prob)
