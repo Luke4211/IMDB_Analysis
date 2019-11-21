@@ -12,7 +12,7 @@ import csv
 import networkx as nx
 import Inf_max as im
 from networkx.algorithms.smallworld import sigma
-
+import matplotlib.pyplot as plt
 def analyze_graph(directory_name):
   graph_pkg = package_graph(directory_name)
   graph = graph_pkg[0]
@@ -35,6 +35,14 @@ def analyze_graph(directory_name):
         print(str(title_map[node]))
     print("Community end \n\n")
     
+  sg = graph.subgraph(comms[0])
+  
+  pos = nx.spring_layout(sg)
+  nx.draw_networkx_nodes(sg, pos)
+  
+  nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
+  
+  plt.show()
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
   sol, spread, elapsed, lookup = im.celf(graph, num_select, prob)
