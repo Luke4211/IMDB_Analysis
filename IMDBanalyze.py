@@ -27,22 +27,23 @@ def analyze_graph(directory_name):
   comms = nx.algorithms.community.greedy_modularity_communities(graph)
   
   i = 0
-  temp = []
+  temp = {}
   for com in comms:
     
     print("Community start: ")
-    
+    j = 0
     for node in com:
       
       
       if node in name_map:
         if i == 0:
-          temp.append(str(name_map[node]))
+          temp[j] = str(name_map[node])
         print(str(name_map[node]))
       else:
         if i == 0:
-          temp.append(str(title_map[node]))
+          temp[j] = str(title_map[node])
         print(str(title_map[node]))
+      j += 1
       
     print("Community end \n\n")
     i += 1
