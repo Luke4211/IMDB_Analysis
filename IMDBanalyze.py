@@ -26,22 +26,33 @@ def analyze_graph(directory_name):
   influence_max(graph, 5, title_map, name_map)
   comms = nx.algorithms.community.greedy_modularity_communities(graph)
   
+  i = 0
+  temp = []
   for com in comms:
+    
     print("Community start: ")
+    j = 0
     for node in com:
+      
+      
       if node in name_map:
+        if i == 0:
+          temp[j] = name_map[node]
         print(str(name_map[node]))
       else:
+        if i == 0:
+          temp[j] = title_map[node]
         print(str(title_map[node]))
+      j += 1
     print("Community end \n\n")
-    
+    i += 1
   sg = graph.subgraph(comms[0])
   
   pos = nx.spring_layout(sg)
-  nx.draw_networkx_nodes(sg, pos)
+  nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=100, alpha=0.8)
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
-  
+  nx.draw_networkx_label(sg, pos, temp, font_size=12)
   plt.savefig("testpic.png")
   
 # Prints out maximally influential actors/movies.
