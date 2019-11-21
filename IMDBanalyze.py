@@ -42,7 +42,8 @@ def analyze_graph(directory_name):
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
   
-  plt.show()
+  plt.savefig("testpic.png")
+  
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
   sol, spread, elapsed, lookup = im.celf(graph, num_select, prob)
