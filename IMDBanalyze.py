@@ -37,11 +37,11 @@ def analyze_graph(directory_name):
       
       if node in name_map:
         if i == 0:
-          temp[j] = str(name_map[node])
+          temp[str(j)] = str(name_map[node])
         print(str(name_map[node]))
       else:
         if i == 0:
-          temp[j] = str(title_map[node])
+          temp[str(j)] = str(title_map[node])
         print(str(title_map[node]))
       j += 1
       
