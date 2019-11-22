@@ -48,10 +48,10 @@ def analyze_graph(directory_name):
     print("Community end \n\n")
     i += 1
   
-  plt.figure(figsize=(20,20))
+  plt.figure(figsize=(15,15))
   sg = graph.subgraph(comms[0])
   
-  pos = nx.spring_layout(sg)
+  pos = nx.spectral_layout(sg)
   nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=600, alpha=0.8)
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
