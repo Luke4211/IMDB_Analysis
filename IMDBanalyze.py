@@ -23,7 +23,7 @@ def analyze_graph(directory_name):
   print("Average Clustering Coefficient: " + str(nx.average_clustering(graph)))
   print("Density: " + str(nx.density(graph)))
   
-  influence_max(graph, 5, title_map, name_map)
+  #influence_max(graph, 5, title_map, name_map)
   comms = nx.algorithms.community.greedy_modularity_communities(graph)
   
   i = 0
@@ -58,7 +58,7 @@ def analyze_graph(directory_name):
   nx.draw_networkx_labels(sg, pos, temp, font_size=5)
   
   
-  plt.savefig("testpic.png", dpi=2000)
+  plt.savefig("testpic.png", dpi=800)
   
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
