@@ -48,17 +48,17 @@ def analyze_graph(directory_name):
     print("Community end \n\n")
     i += 1
   
-  plt.figure(figsize=(15,15))
+  plt.figure(figsize=(20,20))
   sg = graph.subgraph(comms[0])
   
   pos = nx.spring_layout(sg)
-  nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=100, alpha=0.8)
+  nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=600, alpha=0.8)
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
-  nx.draw_networkx_labels(sg, pos, temp, font_size=6)
+  nx.draw_networkx_labels(sg, pos, temp, font_size=5)
   
   
-  plt.savefig("testpic.png", dpi=1000)
+  plt.savefig("testpic.png", dpi=1200)
   
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
