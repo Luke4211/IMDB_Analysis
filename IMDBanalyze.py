@@ -51,14 +51,14 @@ def analyze_graph(directory_name):
   plt.figure(figsize=(20,20))
   sg = graph.subgraph(comms[0])
   
-  pos = nx.spring_layout(sg)
+  pos = nx.spectral_layout(sg)
   nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=600, alpha=0.8)
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
   nx.draw_networkx_labels(sg, pos, temp, font_size=5)
   
   
-  plt.savefig("testpic.png", dpi=1200)
+  plt.savefig("testpic.png", dpi=2000)
   
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
