@@ -41,8 +41,8 @@ def analyze_graph(directory_name):
           print(str(name_map[node]))
       else:
         if i == 0:
-          temp[node] = str(title_map[node])
-          print(str(title_map[node]))
+          temp[node] = str(title_map[node][0])
+          print(str(title_map[node][0]))
       
       
     print("Community end \n\n")
@@ -53,7 +53,9 @@ def analyze_graph(directory_name):
   nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=100, alpha=0.8)
   
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
-  nx.draw_networkx_labels(sg, pos, temp, font_size=12)
+  nx.draw_networkx_labels(sg, pos, temp, font_size=6)
+  
+  plt.figure(3, figsize=(15,15))
   plt.savefig("testpic.png")
   
 # Prints out maximally influential actors/movies.
