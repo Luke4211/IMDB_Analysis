@@ -55,7 +55,7 @@ def analyze_graph(directory_name):
   nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
   nx.draw_networkx_labels(sg, pos, temp, font_size=6)
   
-  plt.figure(3, figsize=(15,15))
+  plt.figure(figsize=(15,15))
   plt.savefig("testpic.png")
   
 # Prints out maximally influential actors/movies.
