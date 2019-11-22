@@ -13,6 +13,7 @@ import networkx as nx
 import Inf_max as im
 from networkx.algorithms.smallworld import sigma
 import matplotlib.pyplot as plt
+import os
 def analyze_graph(directory_name):
   graph_pkg = package_graph(directory_name)
   graph = graph_pkg[0]
@@ -26,39 +27,34 @@ def analyze_graph(directory_name):
   #influence_max(graph, 5, title_map, name_map)
   comms = nx.algorithms.community.greedy_modularity_communities(graph)
   
+  
+  
   i = 0
-  temp = {}
+  os.mkdir("communities")
   for com in comms:
-    
-    print("Community start: ")
+    temp = {}
     
     for node in com:
       
       
       if node in name_map:
-        if i == 0:
-          temp[node] = str(name_map[node])
-          print(str(name_map[node]))
-      else:
-        if i == 0:
-          temp[node] = str(title_map[node][0])
-          print(str(title_map[node][0]))
-      
-      
-    print("Community end \n\n")
+       
+        temp[node] = str(name_map[node])
+        
+      elif node in title_map:
+        temp[node] = str(title_map[node][0])
+    plt.figure(figsize=(15,15))
+    sg = graph.subgraph(com)
+  
+    pos = nx.spring_layout(sg, k=1, iterations=50)
+    nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=600, alpha=0.8)
+  
+    nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
+    nx.draw_networkx_labels(sg, pos, temp, font_size=5)
+  
+    plt.savefig("communities/comm" + str(i) + ".png", dpi=800)
+    plt.close() 
     i += 1
-  
-  plt.figure(figsize=(15,15))
-  sg = graph.subgraph(comms[0])
-  
-  pos = nx.spring_layout(sg, k=0.15, iterations=20)
-  nx.draw_networkx_nodes(sg, pos, node_color='r', node_size=600, alpha=0.8)
-  
-  nx.draw_networkx_edges(sg, pos, width=1.0, alpha=0.5)
-  nx.draw_networkx_labels(sg, pos, temp, font_size=5)
-  
-  
-  plt.savefig("testpic.png", dpi=800)
   
 # Prints out maximally influential actors/movies.
 def influence_max(graph, num_select, title_map, name_map, prob=.1):
